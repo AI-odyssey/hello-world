@@ -1,0 +1,203 @@
+meta:
+  source: "Government Relations Proposal and Engagement Letter Guide (내부 가이드)"
+  note: >
+    이 파일의 규칙은 가이드 3장(작성 원칙), 4장(의무 수준 워딩), 10장(위험 문구와
+    권장 대체안)에서 추출했다. 자동 판정은 초안 검토를 돕기 위한 참고용이며,
+    최종 판단은 사람이 한다 (가이드 서문의 "중요한 계약은 최종 체결 전 법률
+    검토가 필요하다" 원칙과 동일).
+
+# 10장 표에 대응하는 근-문자열(near-literal) 위험 문구.
+# 매칭되면 표에 있는 권장 대체 문구를 그대로 제시한다.
+phrase_rules:
+  - id: P01
+    pattern: '\bwill\s+engage\s+(policymakers|officials|government)\b'
+    category: "직접 대외활동 의무"
+    severity: high
+    guide_ref: "10장 / [Firm] will engage policymakers."
+    issue: "[Firm]이 직접 대외활동의 주체가 되는 것으로 해석될 수 있음"
+    suggestion: "[Firm] will support [Client]'s engagement with mutually agreed stakeholders."
+
+  - id: P02
+    pattern: '\bwill\s+hold\s+(\w+\s+)?meetings?\b'
+    category: "결과 확보 의무"
+    severity: high
+    guide_ref: "10장 / [Firm] will hold four meetings."
+    issue: "면담 성사 자체를 결과로 약속하는 표현"
+    suggestion: "[Firm] will support the coordination of up to [X] meetings, subject to stakeholder availability."
+
+  - id: P03
+    pattern: '\bsecure\s+meetings?\b'
+    category: "결과 확보 의무"
+    severity: high
+    guide_ref: "10장 / Secure meetings with key officials."
+    issue: "특정 인사의 수락을 보장하는 것으로 해석될 수 있음"
+    suggestion: "Support outreach to and coordination with agreed target stakeholders."
+
+  - id: P04
+    pattern: '\brecruit\s+(government\s+officials|speakers|participants)\b'
+    category: "결과 확보 의무"
+    severity: high
+    guide_ref: "10장 / Recruit government officials and speakers."
+    issue: "참석 확보를 의무로 약속하는 표현"
+    suggestion: "Support outreach to and coordination with potential participants."
+
+  - id: P05
+    pattern: '\breach\s+agreement\s+with\b'
+    category: "결과 확보 의무"
+    severity: high
+    guide_ref: "10장 / Reach agreement with an Assembly office."
+    issue: "제3자 동의 확보를 의무로 약속하는 표현"
+    suggestion: "Support discussions with potential offices with a view to identifying a mutually acceptable host."
+
+  - id: P06
+    pattern: '\bensure\s+effective\s+engagement\b'
+    category: "결과 확보 의무"
+    severity: high
+    guide_ref: "10장 / Ensure effective engagement."
+    issue: "engagement의 성과를 보장하는 표현"
+    suggestion: "Provide advice intended to support effective engagement."
+
+  - id: P07
+    pattern: '\bexecute\s+(the\s+)?advocacy\s+events?\b'
+    category: "결과 확보 의무"
+    severity: high
+    guide_ref: "10장 / Execute advocacy events."
+    issue: "행사 전체 결과에 대한 책임으로 해석될 수 있음"
+    suggestion: "Support the planning and delivery of one agreed event."
+
+  - id: P08
+    pattern: '\bongoing\s+support\s+as\s+needed\b'
+    category: "무제한 지속 지원"
+    severity: high
+    guide_ref: "10장 / Provide ongoing support as needed."
+    issue: "기간과 업무량이 무제한으로 해석될 수 있음"
+    suggestion: "정기회의와 투입시간 및 지원기간을 구체적으로 명시"
+
+  - id: P09
+    pattern: '\bupdate\s+the\s+report\s+when\s+needed\b'
+    category: "무제한 지속 지원"
+    severity: high
+    guide_ref: "10장 / Update the report when needed."
+    issue: "업데이트 횟수가 무제한으로 해석될 수 있음"
+    suggestion: "Provide one update during the project period."
+
+  - id: P10
+    pattern: '\bmonitor\s+all\s+relevant\s+developments\b'
+    category: "무제한 지속 지원"
+    severity: high
+    guide_ref: "10장 / Monitor all relevant developments."
+    issue: "모니터링 대상 범위가 무제한으로 해석될 수 있음"
+    suggestion: "합의된 priority area 수와 보고 주기를 명시"
+
+  - id: P11
+    pattern: 'additional\s+fees.{0,80}considerably\s+(surpass|exceed)'
+    category: "초과 업무 기준 불명확"
+    severity: medium
+    guide_ref: "10장 / Additional fees if hours considerably exceed the estimate."
+    issue: "초과 업무 판단 기준이 불명확함"
+    suggestion: "allocation과 사전 통지(예: 80% 소진 시 통지) 및 서면 승인 기준을 명시"
+
+  - id: P12
+    pattern: '\bdevelop\s+an?\s+advocacy\s+strategy\b'
+    category: "산출물 불명확"
+    severity: medium
+    guide_ref: "10장 / Develop an advocacy strategy."
+    issue: "advisory / recommendations / roadmap 중 어느 서비스인지 불명확"
+    suggestion: "advisory, recommendations, roadmap 중 해당 서비스를 명시"
+
+  - id: P13
+    pattern: 'at\s+the\s+appropriate\s+level\s+on\s+a\s+regular\s+basis'
+    category: "대상·횟수 불명확"
+    severity: medium
+    guide_ref: "10장 / At the appropriate level on a regular basis."
+    issue: "대상(target group)과 횟수가 불명확함"
+    suggestion: "target group과 횟수 및 기간을 명시"
+
+# 3.4 / 4장의 "결과 확보 의무" 및 "직접 대외활동" 동사군.
+# 문맥에 따라 정상적으로 쓰일 수도 있으므로 severity를 낮춰 참고용으로 표시한다.
+keyword_rules:
+  - id: K01
+    pattern: '\bsecure\b'
+    category: "결과 확보 의무 (원칙적으로 지양)"
+    severity: high
+    guide_ref: "3.4 / 4장"
+    issue: "제3자의 행동이나 결과를 확보하는 것으로 해석될 수 있는 동사"
+
+  - id: K02
+    pattern: '\bobtain\b'
+    category: "결과 확보 의무 (원칙적으로 지양)"
+    severity: high
+    guide_ref: "3.4 / 4장"
+    issue: "제3자의 행동이나 결과를 확보하는 것으로 해석될 수 있는 동사"
+
+  - id: K03
+    pattern: '\brecruit\b'
+    category: "결과 확보 의무 (원칙적으로 지양)"
+    severity: high
+    guide_ref: "3.4 / 4장"
+    issue: "제3자의 행동이나 결과를 확보하는 것으로 해석될 수 있는 동사"
+
+  - id: K04
+    pattern: '\bensure\b'
+    category: "결과 확보 의무 (원칙적으로 지양)"
+    severity: high
+    guide_ref: "3.4 / 4장"
+    issue: "제3자의 행동이나 결과를 확보하는 것으로 해석될 수 있는 동사"
+
+  - id: K05
+    pattern: '\bguarantee[sd]?\b'
+    category: "성과 보장 표현"
+    severity: high
+    guide_ref: "3.4 / 13.2"
+    issue: "정책 결과나 사업 성과를 보장하는 표현은 원칙적으로 사용하지 않음"
+
+  - id: K06
+    pattern: '\bengage\b'
+    category: "직접 대외활동 (승인된 경우만 사용)"
+    severity: caution
+    guide_ref: "4장"
+    issue: "[Firm]이 직접 접촉의 주체가 되는 것으로 읽힐 수 있음. 실제 scope에 포함되고 승인 절차가 있을 때만 사용"
+
+  - id: K07
+    pattern: '\bliaise\s+with\b'
+    category: "직접 대외활동 (승인된 경우만 사용)"
+    severity: caution
+    guide_ref: "4장"
+    issue: "[Firm]이 직접 접촉의 주체가 되는 것으로 읽힐 수 있음. 실제 scope에 포함되고 승인 절차가 있을 때만 사용"
+
+  - id: K08
+    pattern: '\bconduct\s+outreach\s+to\b'
+    category: "직접 대외활동 (승인된 경우만 사용)"
+    severity: caution
+    guide_ref: "4장"
+    issue: "[Firm]이 직접 접촉의 주체가 되는 것으로 읽힐 수 있음. 실제 scope에 포함되고 승인 절차가 있을 때만 사용"
+
+# 3.3 - 반드시 기간/투입시간/횟수 등 cap과 함께 쓰여야 하는 단어.
+# 문장 자체가 아니라 "이 단어를 쓴 문단에 cap이 같이 있는지"를 사람이 확인하도록 위치만 표시한다.
+cap_watch_words:
+  - ongoing
+  - regular
+  - as needed
+  - when required
+  - as required
+  - all relevant
+
+# 13.2 체크리스트 중 문서 전체 단위에서 자동으로 점검 가능한 항목.
+document_checks:
+  - id: D01
+    description: "외부 이해관계자/면담 관련 문구에 availability·confirmation 전제 조건이 있는가"
+    guide_ref: "3.1 / 5.9 / 13.2"
+    trigger_keywords: ["stakeholder", "meeting", "participant"]
+    required_pattern: 'subject to.{0,30}(availability|confirmation)'
+
+  - id: D02
+    description: "Scope 외 추가 업무는 별도 서면 합의 대상이라는 조항이 있는가"
+    guide_ref: "3.5 / 11.10"
+    trigger_keywords: null
+    required_pattern: 'separate written agreement'
+
+  - id: D03
+    description: "특정 이해관계자 참석/성사를 보장하지 않는다는 문구가 있는가"
+    guide_ref: "5.9 / 5.10 / 11.6"
+    trigger_keywords: ["stakeholder", "participant", "attendee"]
+    required_pattern: 'does not guarantee'
