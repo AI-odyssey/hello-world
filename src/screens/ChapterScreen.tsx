@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { genesis1 } from '../data/genesis1';
 import { ModeToggle, type Mode } from '../components/ModeToggle';
-import { VerseCard } from '../components/VerseCard';
+import { ChapterFlow } from '../components/ChapterFlow';
 
 export function ChapterScreen() {
   const [mode, setMode] = useState<Mode>('mz');
@@ -21,13 +21,12 @@ export function ChapterScreen() {
 
       <ModeToggle mode={mode} onChange={setMode} />
 
-      <FlatList
-        data={chapter.verses}
-        keyExtractor={(v) => String(v.n)}
-        renderItem={({ item }) => <VerseCard verse={item} mode={mode} />}
-        contentContainerStyle={styles.list}
+      <ScrollView
+        contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
-      />
+      >
+        <ChapterFlow verses={chapter.verses} mode={mode} />
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -59,9 +58,9 @@ const styles = StyleSheet.create({
     color: '#8B879E',
     marginTop: 2,
   },
-  list: {
+  content: {
     paddingHorizontal: 20,
-    paddingTop: 14,
-    paddingBottom: 40,
+    paddingTop: 18,
+    paddingBottom: 48,
   },
 });
