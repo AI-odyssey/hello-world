@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import type { Verse } from '../data/genesis1';
+import type { Verse } from '../data/types';
 import type { Mode } from './ModeToggle';
 import { toSuperscript } from '../utils/superscript';
 
@@ -9,11 +9,11 @@ type Props = {
   mode: Mode;
 };
 
-function groupByDay(verses: Verse[]): Verse[][] {
+function groupByPara(verses: Verse[]): Verse[][] {
   const groups: Verse[][] = [];
   for (const verse of verses) {
     const last = groups[groups.length - 1];
-    if (last && last[0].day === verse.day) {
+    if (last && last[0].para === verse.para) {
       last.push(verse);
     } else {
       groups.push([verse]);
@@ -23,7 +23,7 @@ function groupByDay(verses: Verse[]): Verse[][] {
 }
 
 export function ChapterFlow({ verses, mode }: Props) {
-  const groups = useMemo(() => groupByDay(verses), [verses]);
+  const groups = useMemo(() => groupByPara(verses), [verses]);
   const isMz = mode === 'mz';
 
   return (

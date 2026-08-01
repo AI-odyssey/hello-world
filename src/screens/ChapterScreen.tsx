@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { genesis1 } from '../data/genesis1';
+import { chapters } from '../data';
 import { ModeToggle, type Mode } from '../components/ModeToggle';
 import { ChapterFlow } from '../components/ChapterFlow';
+import { ChapterTabs } from '../components/ChapterTabs';
 
 export function ChapterScreen() {
   const [mode, setMode] = useState<Mode>('mz');
-  const chapter = genesis1;
+  const [activeChapter, setActiveChapter] = useState(1);
+  const chapter = useMemo(
+    () => chapters.find((c) => c.chapter === activeChapter) ?? chapters[0],
+    [activeChapter],
+  );
 
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="dark-content" />
       <View style={styles.header}>
         <Text style={styles.eyebrow}>MZ 성경 · 시즌1</Text>
-        <Text style={styles.title}>
-          {chapter.book} {chapter.chapter}장
-        </Text>
-        <Text style={styles.subtitle}>{chapter.title}</Text>
+        <Text style={styles.title}>{chapter.book}</Text>
       </View>
 
-      <ModeToggle mode={mode} onChange={setMode} />
+      <ChapterTabs
+        chapters={chapters}
+        activeChapter={activeChapter}
+        onChange={setActiveChapter}
+      />
+
+      <View style={styles.subHeader}>
+        <Text style={styles.chapterTitle}>
+          {chapter.chapter}장 · {chapter.title}
+        </Text>
+        <ModeToggle mode={mode} onChange={setMode} />
+      </View>
 
       <ScrollView
         contentContainerStyle={styles.content}
@@ -39,7 +52,7 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: 20,
     paddingTop: 12,
-    paddingBottom: 16,
+    paddingBottom: 12,
   },
   eyebrow: {
     fontSize: 12,
@@ -53,14 +66,20 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#26243A',
   },
-  subtitle: {
+  subHeader: {
+    paddingHorizontal: 20,
+    paddingTop: 14,
+    paddingBottom: 10,
+    gap: 10,
+  },
+  chapterTitle: {
     fontSize: 14,
     color: '#8B879E',
-    marginTop: 2,
+    fontWeight: '600',
   },
   content: {
     paddingHorizontal: 20,
-    paddingTop: 18,
+    paddingTop: 6,
     paddingBottom: 48,
   },
 });
