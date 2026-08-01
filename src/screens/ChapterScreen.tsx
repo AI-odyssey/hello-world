@@ -1,12 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { chapters } from '../data';
-import { ModeToggle, type Mode } from '../components/ModeToggle';
 import { ChapterFlow } from '../components/ChapterFlow';
 import { ChapterTabs } from '../components/ChapterTabs';
 
 export function ChapterScreen() {
-  const [mode, setMode] = useState<Mode>('mz');
   const [activeChapter, setActiveChapter] = useState(1);
   const chapter = useMemo(
     () => chapters.find((c) => c.chapter === activeChapter) ?? chapters[0],
@@ -27,18 +25,15 @@ export function ChapterScreen() {
         onChange={setActiveChapter}
       />
 
-      <View style={styles.subHeader}>
-        <Text style={styles.chapterTitle}>
-          {chapter.chapter}장 · {chapter.title}
-        </Text>
-        <ModeToggle mode={mode} onChange={setMode} />
-      </View>
+      <Text style={styles.chapterTitle}>
+        {chapter.chapter}장 · {chapter.title}
+      </Text>
 
       <ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <ChapterFlow verses={chapter.verses} mode={mode} />
+        <ChapterFlow verses={chapter.verses} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -66,16 +61,13 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#26243A',
   },
-  subHeader: {
-    paddingHorizontal: 20,
-    paddingTop: 14,
-    paddingBottom: 10,
-    gap: 10,
-  },
   chapterTitle: {
     fontSize: 14,
     color: '#8B879E',
     fontWeight: '600',
+    paddingHorizontal: 20,
+    paddingTop: 14,
+    paddingBottom: 8,
   },
   content: {
     paddingHorizontal: 20,
